@@ -42,3 +42,22 @@ try {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+window.previewLogo = function(input, destination, width = false, height = false) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var img = document.createElement('img')
+            $(img)
+                .attr('src', e.target.result)
+                .width(width || 150)
+                .height(width || 200);
+            $(destination).html(img)
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+window.openFile = function(destination){
+    document.querySelector(destination).click()
+}

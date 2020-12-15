@@ -23,5 +23,9 @@
         "sass-loader": "^8.0.0",
         "vue-template-compiler": "^2.6.12"
     },
-    "dependencies": {}
+    "dependencies": {
+        "bootstrap-icons": "^1.2.1",
+        "chartjs": "^0.3.24",
+        "mdbootstrap": "^4.19.2"
+    }
 }

@@ -16,10 +16,10 @@ class ThemeController extends Controller
     public function update()
     {
         request()->validate([
-            'logo' => 'required|image'
+            'logo' => 'sometimes|mimes:jpeg,png,jpg'
         ]);
         $theme = Theme::first();
-        if($theme->logo){
+        if($theme && $theme->logo){
             Storage::disk('public')->delete($theme->logo);
         }
         Theme::updateOrCreate([],[

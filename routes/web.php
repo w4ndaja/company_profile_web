@@ -26,15 +26,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::view('login', 'pages.login')->middleware(['guest','dashboard']);
+Route::view('login', 'pages.login')->middleware(['guest', 'dashboard']);
 Route::view('superadmin-created', 'pages.superadmin-created')->middleware('dashboard:didnhaveuser');
 Route::post('login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest');
-Route::middleware(['dashboard', 'auth'])->group(function(){
+Route::middleware(['dashboard', 'auth'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-    Route::prefix('dashboard')->group(function(){
+    Route::prefix('dashboard')->group(function () {
         Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('menu', MenuController::class)->except('create');
+        Route::resource('sub-menu', SubMenuController::class)->except('create');
         Route::resources([
-            'menu' => MenuController::class,
             'static-page' =>  StaticPageController::class,
             'post' =>  PostController::class,
             'category' =>  CategoryController::class,

@@ -27,27 +27,22 @@
         @yield('content')
     </section>
     <script src="{{ asset('js/app.js') }}"></script>
+    @stack('scripts')
     <script>
-        function previewLogo(input, destination, width = false, height = false) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var img = document.createElement('img')
-                    $(img)
-                        .attr('src', e.target.result)
-                        .width(width || 150)
-                        .height(width || 200);
-                    $(destination).html(img)
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        function openFile(destination){
-            document.querySelector(destination).click()
+        $('a[href="'+document.location.href+'"]').addClass('active').parent().parent('li.nav-item').addClass('active')
+        $('a[href="'+document.location.pathname+'"]').addClass('active').parent().parent('li.nav-item').addClass('active')
+        function showConfirmDelete(e, data){
+            var modal = document.querySelector(e.dataset.target)
+            var form = modal.querySelector('form')
+            var action = form.getAttribute('action')
+            var newAction = action+'/'+data.id
+            modal.querySelector('.delete-warning-message').innerHTML = data.name
+            form.setAttribute('action', newAction)
+            $(modal).on('hidden.bs.modal', function(e){
+                form.setAttribute('action', action)
+            })
         }
     </script>
-    @stack('scripts')
 </body>
 
 </html>

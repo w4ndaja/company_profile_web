@@ -1,17 +1,44 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color:white">
     <div class="container">
-        <a class="navbar-brand" href="#page-top">
-            @if(config('theme.logo'))<img src="{{ asset(config('theme.logo')) }}" alt="" height="84" class="position-absolute bg-white shadow-sm rounded" style="top: 0">@endif
-            {{ config('site.name') }}
+        <a class="navbar-brand text-dark" href="{{url('/')}}">
+            @if(config('theme.logo'))
+            <img src="{{ asset(config('theme.logo')) }}" alt="" height="84" class="position-absolute bg-white shadow-sm rounded" style="top: 0">
+            @endif
+            {{ config('site.name') ?? 'Site Name' }}
         </a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto my-2 my-lg-0 mt-5 mt-sm-0">
-                <li class="nav-item"><a class="nav-link active" href="/">About</a></li>
-                <li class="nav-item"><a class="nav-link text-dark " href="/login">Login</a></li>
+                @foreach(config('menus') as $key => $menu)
+                @if($menu->hasChildren())
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="nav_menu_{{$key}}" role="button">
+                        {{$menu->name}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="nav_menu_{{$key}}">
+                        @foreach($menu->children as $sub_key => $sub_menu)
+                        @if($sub_menu->hasChildren())
+                        <div class="dropleft nav-item p-0">
+                            <a class="dropdown-item dropdown-toggle text-dark px-4 py-1 d-block" href="#" id="sub_menu_dropdown_{{$sub_key}}" role="button">
+                                {{$sub_menu->name}}
+                            </a>
+                            <div class="dropdown-menu">
+                                @foreach($sub_menu->children as $sub_sub_menu)
+                                <a class="dropdown-item text-dark" href="{{url($sub_sub_menu->url)}}">{{$sub_sub_menu->name}}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                        @else
+                        <a class="dropdown-item text-dark" href="{{url($sub_menu->url)}}">{{$sub_menu->name}}</a>
+                        @endif
+                        @endforeach
+                    </div>
+                </li>
+                @else
+                <li class="nav-item"><a class="nav-link text-dark" href="{{$menu->url}}">{{$menu->name}}</a></li>
+                @endif
+                @endforeach
             </ul>
         </div>
     </div>

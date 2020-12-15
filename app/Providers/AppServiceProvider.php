@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Theme;
-use App\Models\User;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
+
     }
 
     /**
@@ -26,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $theme = Theme::firstOrNew()->toArray();
-        Config::set('theme', $theme);
+
     }
 }
