@@ -11,10 +11,12 @@
         var target = $(e.target);
         target.parent().parent().find('.dropdown-menu.show').not(target.next()).removeClass('show')
         target.next().toggleClass('show')
-        console.log('toggling')
     });
-    $('body').not('.dropdown .dropdown-menu .dropdown-toggle').click(e => {
-        $('.dropdown-menu.show').removeClass('show')
-        console.log('collapsing')
+    $('body').click(e => {
+        var navLink = $(e.target).hasClass('nav-link')
+        var dropItem = $(e.target).hasClass('dropdown-item')
+        if(!navLink && !dropItem){
+            console.log($('.dropdown-menu.show').removeClass('show'))
+        }
     })
 </script>

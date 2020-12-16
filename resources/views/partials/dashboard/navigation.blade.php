@@ -20,7 +20,7 @@
                     <a class="dropdown-item" href="{{ route('theme.index') }}">Pengaturan Situs</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Artikel
                 </a>
@@ -29,7 +29,7 @@
                     <a class="dropdown-item" href="{{ route('category.index') }}">Kategori</a>
                     <a class="dropdown-item" href="{{ route('tag.index') }}">Tag</a>
                 </div>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     User

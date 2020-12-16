@@ -7,8 +7,8 @@
 </head>
 
 <body id="page-top">
-    @include('partials.navigation')
-    
+    @include($navigation ?? 'partials.navigation')
+
     @yield('content')
     @include('partials.footer')
     @include('partials.scripts')

@@ -46,9 +46,19 @@ Route::middleware(['dashboard', 'auth'])->group(function () {
         ]);
         Route::get('theme', [ThemeController::class, 'index'])->name('theme.index');
         Route::patch('theme', [ThemeController::class, 'update'])->name('theme.update');
+        Route::patch('home-theme', [ThemeController::class, 'updateHome'])->name('home-theme.update');
+        Route::patch('footer-theme', [ThemeController::class, 'updateFooter'])->name('footer-theme.update');
         Route::post('assign-role/{user}', [UserController::class, 'assignRole'])->name('user.assign-role');
         Route::post('assign-permission/{user}', [UserController::class, 'assignPermission'])->name('user.assign-permission');
         Route::get('change-password', [UserController::class, 'changePassword'])->name('change-password');
         Route::patch('change-password', [UserController::class, 'attemptChangePassword'])->name('attempt-change-password');
+
+        Route::get('static-page', [StaticPageController::class, 'index'])->name('static-page.index');
+        Route::get('static-page/{page}', [StaticPageController::class, 'edit'])->name('static-page.edit');
+        Route::post('static-page', [StaticPageController::class, 'store'])->name('static-page.store');
+        Route::patch('static-page/{page}', [StaticPageController::class, 'update'])->name('static-page.update');
+
     });
 });
+
+Route::get('{static}', [StaticPageController::class, 'getView']);

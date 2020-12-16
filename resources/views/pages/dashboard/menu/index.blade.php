@@ -84,7 +84,7 @@
             <div class="card shadow">
                 <div class="card-header d-flex justify-content-between bg-secondary text-light py-2">
                     <h3 class="m-0">@if(!$current && !$parent) Tambah Menu Utama @elseif($current) Edit Menu {{$current->name}} @else Tambah Sub Menu {{$parent->name}} @endif</h3>
-                    @if($parent) <a href="{{ $parent->hasParent() ? route('menu.show', $parent->parent) : route('menu.index', ['menu' => $current->id])}}" class="btn btn-dark">Buat Baru</a> @endif
+                    @if($current) <a href="{{ $current->hasParent() ? route('menu.show', $current->parent) : route('menu.index')}}" class="btn btn-dark">Buat Baru</a> @endif
                 </div>
                 <form action="{{$current ? route('menu.update', $current->id) : route('menu.store', ['menu' => $parent ? $parent->id : null])}}" method="post">
                     @csrf
@@ -95,7 +95,7 @@
                         <x-input name="icon" :value="$current->icon ?? ''" label="Icon Class"></x-input>
                         <x-input name="url" :value="$current->url ?? ''" label="URL"></x-input>
                     </div>
-                    <div class="card-footer bg-secondary d-flex justify-content-end py-2"><button class="btn btn-dark" type="submit">@if($current) Simpan @else Tambah @endif</button></div>
+                    <div class="card-footer bg-secondary d-flex justify-content-end py-2"><button class="btn btn-dark" type="submit">@if($current) Simpan Perubahan @else Tambah @endif</button></div>
                 </form>
             </div>
         </div>

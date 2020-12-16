@@ -2,10 +2,14 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color:white">
     <div class="container">
         <a class="navbar-brand text-dark" href="{{url('/')}}">
-            @if(config('theme.logo'))
-            <img src="{{ asset(config('theme.logo')) }}" alt="" height="84" class="position-absolute bg-white shadow-sm rounded" style="top: 0">
+            @if(Storage::disk('public')->exists(config('theme.logo')))
+            <div class="position-absolute" style="top: 0">
+                <img src="{{ asset(config('theme.logo')) }}" alt="" height="84" class="bg-white shadow-sm rounded p-1">
+                <span class="position-absolute m-2" style="top:0">{{ config('theme.name') ?? 'Site Name' }}</span>
+            </div>
+            @else
+            <span>{{ config('theme.name') ?? 'Site Name' }}</span>
             @endif
-            {{ config('site.name') ?? 'Site Name' }}
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">

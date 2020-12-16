@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>@yield('title')</title>
+    @stack('heads')
 </head>
 
 <body>
@@ -27,7 +28,6 @@
         @yield('content')
     </section>
     <script src="{{ asset('js/app.js') }}"></script>
-    @stack('scripts')
     <script>
         $('a[href="'+document.location.href+'"]').addClass('active').parent().parent('li.nav-item').addClass('active')
         $('a[href="'+document.location.pathname+'"]').addClass('active').parent().parent('li.nav-item').addClass('active')
@@ -43,6 +43,7 @@
             })
         }
     </script>
+    @stack('scripts')
 </body>
 
 </html>

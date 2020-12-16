@@ -11,6 +11,7 @@ import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/button';
 import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/dropdown';
+import 'bootstrap/js/dist/tooltip';
 try {
     // window.Popper = require('popper.js').default;
     // require('bootstrap');
@@ -51,7 +52,7 @@ window.previewLogo = function(input, destination, width = false, height = false)
             $(img)
                 .attr('src', e.target.result)
                 .width(width || 150)
-                .height(width || 200);
+                .height(height || 200);
             $(destination).html(img)
         };
 

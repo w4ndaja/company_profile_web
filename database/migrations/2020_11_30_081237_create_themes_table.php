@@ -32,6 +32,7 @@ class CreateThemesTable extends Migration
             $table->string('tertiary_background_color')->nullable();
             $table->string('header_background')->nullable();
             $table->text('footer')->nullable();
+            $table->text('home')->nullable();
             $table->timestamps();
         });
     }
