@@ -17,7 +17,7 @@
 </script>
 @endpush
 @section('content')
-<form action="{{$action}}" method="post">
+<form action="{{$action}}" method="post" id="page-form" enctype="multipart/form-data">
     @csrf
     @method($method)
     <div class="container pt-3">
@@ -30,13 +30,14 @@
                 <div class="row form-group">
                     <label class="col-form-label col-lg-4">Gambar Utama</label>
                     <div class="col-lg-8">
-                        <div onclick="openFile('#thumb-input')" class="btn rounded shadow-sm d-flex justify-content-center align-items-center bg-secondary" style="width:256px;height:256px;overflow:hidden" id="thumb-preview">
+                        <div onclick="openFile('#thumb-input')" class="btn rounded shadow-sm d-flex justify-content-center align-items-center bg-light border-secondary @error('thumb')  border-danger @enderror" style="width:256px;height:256px;overflow:hidden" id="thumb-preview">
                             @if(Storage::disk('public')->exists($page->thumb))
                             <img src="{{asset($page->thumb)}}" alt="Error Image" class="w-100">
                             @else
-                            <strong class="text-warning">No Image</strong>
+                            <strong class="text-danger">No Image</strong>
                             @endif
                         </div>
+                        @error('thumb') <span class="text-danger">{{$message}}</span>@enderror
                         <input type="file" name="thumb" class="d-none" id="thumb-input" onchange="previewLogo(this, '#thumb-preview', '100%', 'auto')">
                     </div>
                 </div>
@@ -51,6 +52,7 @@
                 <h4>Konten</h4>
             </div>
             <div class="card-body" id="editor">
+                {!!$page->content!!}
             </div>
         </div>
     </div>

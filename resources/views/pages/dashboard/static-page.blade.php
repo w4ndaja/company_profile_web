@@ -22,11 +22,11 @@
                 <tbody>
                     @foreach($statics as $key => $static)
                     <tr>
-                        <td>{{$key}}.</td>
+                        <td>{{$key+1}}.</td>
                         <td>
                             <div class="rounded bg-secondary d-flex justify-content-center align-items-center" style="width:128px;height;128px;overflow-hidden">
                                 @if(Storage::disk('public')->exists($static->thumb))
-                                <img src="{{asset($static->thumb)}}" alt="Error Image" class="w-100">
+                                <a href="#" class="btn btn-secondary p-0 modal-preview-image" data-url="{{asset($static->thumb)}}"><img src="{{asset($static->thumb)}}" alt="Error Image" class="w-100 rounded"></a>
                                 @else
                                 No Thumb
                                 @endif
@@ -43,7 +43,7 @@
                                 </button>
                                 <div class="dropdown-menu shadow py-0 border-0" aria-labelledby="static-page-action-{{$key}}">
                                     <a class="dropdown-item px-3" href="{{route('static-page.edit', $static->id)}}"><i class="bi bi-pencil-fill"></i> Edit</a>
-                                    <button class="dropdown-item px-3" data-toggle="modal" data-target="#confirm-delete-menu" onclick="showConfirmDelete(this, {{json_encode($menu)}})"><i class="bi bi-trash-fill"></i> Hapus</button>
+                                    <button class="dropdown-item px-3" data-toggle="modal" data-target="#confirm-delete-menu" onclick="showConfirmDelete(this, {{json_encode($static)}})"><i class="bi bi-trash-fill"></i> Hapus</button>
                                 </div>
                             </div>
                         </td>
@@ -53,28 +53,50 @@
             </table>
         </div>
     </div>
-</div>
-<div class="modal" tabindex="-1" role="dialog" id="confirm-delete-menu">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header py-1 bg-danger text-light pr-1">
-                <h4 class="modal-title mb-0">Peringatan</h4>
-                <button type="button" class="btn btn-sm shadow btn-dark" data-dismiss="modal" aria-label="Close">
-                    <strong aria-hidden="true">&times;</strong>
-                </button>
+    <div class="modal" id="modal-preview-image">
+        <div class="modal-fade modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content bg-transparent">
+                <div class="modal-body p-0">
+                    <button class="btn btn-danger text-white position-absolute m-2 shadow" style="top:0;right:0" data-dismiss="modal">X</button>
+                    <img class="w-100" src="" alt="Tidak dapat dimuat">
+                </div>
             </div>
-            <form action="{{route('static-page.destroy', '')}}" method="post">
-                @csrf
-                @method('delete')
-                <div class="modal-body">
-                    <p>Apakah anda yakin ingin menghapus halaman <span class="delete-warning-message"></span> ?</p>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="confirm-delete-menu">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header py-1 bg-danger text-light pr-1">
+                    <h4 class="modal-title mb-0">Peringatan</h4>
+                    <button type="button" class="btn btn-sm shadow btn-dark" data-dismiss="modal" aria-label="Close">
+                        <strong aria-hidden="true">&times;</strong>
+                    </button>
                 </div>
-                <div class="modal-footer py-1">
-                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                </div>
-            </form>
+                <form action="{{route('static-page.destroy', '')}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <div class="modal-body">
+                        <p>Apakah anda yakin ingin menghapus halaman <span class="delete-warning-message"></span> ?</p>
+                    </div>
+                    <div class="modal-footer py-1">
+                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    </div>
+                </form>
+
+            </div>
         </div>
     </div>
 </div>
+
 @endsection
+@push('scripts')
+<script>
+    $('.modal-preview-image').click(e => {
+        e.preventDefault()
+        var modal = $('#modal-preview-image')
+        modal.find('img').attr('src', e.currentTarget.dataset.url)
+        modal.modal('show')
+    })
+</script>
+@endpush

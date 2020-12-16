@@ -36,7 +36,6 @@ Route::middleware(['dashboard', 'auth'])->group(function () {
         Route::resource('menu', MenuController::class)->except('create');
         Route::resource('sub-menu', SubMenuController::class)->except('create');
         Route::resources([
-            'static-page' =>  StaticPageController::class,
             'post' =>  PostController::class,
             'category' =>  CategoryController::class,
             'tag' =>  TagController::class,
@@ -54,11 +53,12 @@ Route::middleware(['dashboard', 'auth'])->group(function () {
         Route::patch('change-password', [UserController::class, 'attemptChangePassword'])->name('attempt-change-password');
 
         Route::get('static-page', [StaticPageController::class, 'index'])->name('static-page.index');
-        Route::get('static-page/{page}', [StaticPageController::class, 'edit'])->name('static-page.edit');
+        Route::get('static-page/create', [StaticPageController::class, 'create'])->name('static-page.create');
+        Route::delete('static-page/{page:id}', [StaticPageController::class, 'destroy'])->name('static-page.destroy');
+        Route::get('static-page/{page:id}', [StaticPageController::class, 'edit'])->name('static-page.edit');
         Route::post('static-page', [StaticPageController::class, 'store'])->name('static-page.store');
-        Route::patch('static-page/{page}', [StaticPageController::class, 'update'])->name('static-page.update');
-
+        Route::patch('static-page/{page:id}', [StaticPageController::class, 'update'])->name('static-page.update');
     });
 });
 
-Route::get('{static}', [StaticPageController::class, 'getView']);
+Route::get('{page:url}', [HomeController::class, 'staticPage']);

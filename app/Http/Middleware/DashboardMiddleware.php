@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Theme;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 
 class DashboardMiddleware
 {
@@ -22,6 +24,7 @@ class DashboardMiddleware
             Artisan::call('db:seed', ['--class' => 'UserSeeder']);
             return redirect('superadmin-created');
         }
+        Config::set('theme', Theme::firstOrNew());
         return $next($request);
     }
 }

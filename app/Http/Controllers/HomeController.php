@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Pages;
 use App\Models\Theme;
 use Illuminate\Support\Facades\Config;
 
@@ -18,5 +19,9 @@ class HomeController extends Controller
     public function index()
     {
         return view('pages.home');
+    }
+    public function staticPage(Pages $page)
+    {
+        return view('pages.static', compact('page'));
     }
 }

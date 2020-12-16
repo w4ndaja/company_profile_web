@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ url('') }}"> {{ config('app.name') }} </a>
+    <a class="navbar-brand" href="{{ url('') }}"> {{ config('theme.name') }} </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,8 +16,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown2" style="min-width:110px;right:0!important;left:auto!important">
                     <a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a>
-                    <a class="dropdown-item" href="{{ route('static-page.index') }}">Halaman Statis</a>
-                    <a class="dropdown-item" href="{{ route('theme.index') }}">Pengaturan Situs</a>
+                    <a class="dropdown-item" href="{{ route('static-page.index') }}">Halaman</a>
+                    <a class="dropdown-item" href="{{ route('theme.index') }}">Pengaturan</a>
                 </div>
             </li>
             {{-- <li class="nav-item dropdown">
