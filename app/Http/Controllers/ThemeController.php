@@ -10,7 +10,7 @@ class ThemeController extends Controller
 {
     public $theme;
 
-    function __construct()
+    public function __construct()
     {
         $this->theme = Theme::firstOrNew();
     }
@@ -29,16 +29,18 @@ class ThemeController extends Controller
             'name' => 'required|string',
         ]);
         $theme = Theme::updateOrCreate([], $this->getForm());
+
         return back()->with('success', 'Tema berhasil diperbaharui');
     }
 
     public function getForm()
     {
         $req = request()->only('name');
-        if(request()->hasFile('logo')) {
-            Storage::disk('public')->exists($this->theme->logo) ?  Storage::disk('public')->delete($this->theme->logo) : 1;
+        if (request()->hasFile('logo')) {
+            Storage::disk('public')->exists($this->theme->logo) ? Storage::disk('public')->delete($this->theme->logo) : 1;
             $req['logo'] = request()->file('logo')->store('theme', 'public');
         }
+
         return $req;
     }
 
@@ -47,13 +49,16 @@ class ThemeController extends Controller
         Theme::first()->update([
             'home' => request()->content,
         ]);
+
         return back()->with('success', 'Tampilan beranda berhasil diubah');
     }
+
     public function updateFooter()
     {
         Theme::first()->update([
             'footer' => request()->footer,
         ]);
+
         return back()->with('success', 'Tampilan footer berhasil diubah');
     }
 }

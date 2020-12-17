@@ -22,13 +22,19 @@ class MenuController extends Controller
         $primaries = $this->primaries();
         $current = null;
         $parent = null;
+
         return view('pages.dashboard.menu.index', compact('primaries', 'current', 'parent'));
     }
+
     public function store()
     {
         $this->validateForm();
-        if ($menu = request('menu')) Menu::findOrFail($menu)->children()->create($this->getForm());
-        else Menu::create($this->getForm());
+        if ($menu = request('menu')) {
+            Menu::findOrFail($menu)->children()->create($this->getForm());
+        } else {
+            Menu::create($this->getForm());
+        }
+
         return back()->with('success', 'Menu berhasil ditambah');
     }
 
@@ -43,6 +49,7 @@ class MenuController extends Controller
         $primaries = $menu->children;
         $parent = $menu;
         $current = null;
+
         return view('pages.dashboard.menu.index', compact('primaries', 'parent', 'current'));
     }
 
@@ -57,6 +64,7 @@ class MenuController extends Controller
         $current = $menu;
         $parent = $menu->parent()->first();
         $primaries = $parent ? $parent->children : $this->primaries();
+
         return view('pages.dashboard.menu.index', compact('primaries', 'current', 'parent'));
     }
 
@@ -71,6 +79,7 @@ class MenuController extends Controller
     {
         $this->validateForm($menu->id);
         $menu->update($this->getForm());
+
         return back()->with('success', 'Menu berhasil diperbaharui');
     }
 
@@ -83,14 +92,17 @@ class MenuController extends Controller
     public function destroy(Menu $menu)
     {
         $menu->delete();
+
         return back()->with('success', 'Menu Utama berhasil dihapus');
     }
+
     public function getForm()
     {
         return collect(request()->only('order', 'name', 'icon', 'url'))->mapWithKeys(function ($menu, $key) {
             return [$key => $menu];
         })->all();
     }
+
     public function validateForm($id = null)
     {
         request()->validate([
@@ -99,12 +111,14 @@ class MenuController extends Controller
                     $same = Menu::doesntHave('parent')->where('name', $val);
                     $same = $id ? $same->where('id', '<>', $id) : $same;
                     $same = $same->first();
-                    if ($same) $fail("Menu Utama dengan nama $val sudah ada");
+                    if ($same) {
+                        $fail("Menu Utama dengan nama $val sudah ada");
+                    }
                 },
             ],
             'order' => 'sometimes|nullable|numeric',
             'icon' => 'sometimes|nullable|string',
-            'url' => 'sometimes|nullable|string'
+            'url' => 'sometimes|nullable|string',
         ]);
     }
 }
