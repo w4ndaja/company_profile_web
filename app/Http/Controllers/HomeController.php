@@ -12,7 +12,7 @@ class HomeController extends Controller
     function __construct()
     {
         $theme = Theme::firstOrNew();
-        $menus = Menu::doesntHave('parent')->with('children')->get();
+        $menus = Menu::doesntHave('parent')->with('children')->orderBy('order')->get();
         Config::set('theme', $theme);
         Config::set('menus', $menus);
     }

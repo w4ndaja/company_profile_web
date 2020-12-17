@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ url('') }}"> {{ config('theme.name') }} </a>
+    <a class="navbar-brand" href="{{ url('') }}" target="_blank"> {{ config('theme.name') }} </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,7 +38,7 @@
                     <div class="dropdown-header my-0 py-0 text-wrap"><strong class="h6">Selamat Datang, {{ Auth::user()->name }}</strong></div>
                     <div class="dropdown-header my-0 py-0"><strong class="h4"></strong></div>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('user.index') }}">Manajemen Pengguna</a>
+                    {{-- <a class="dropdown-item" href="{{ route('user.index') }}">Manajemen Pengguna</a> --}}
                     <a class="dropdown-item" href="{{ route('change-password') }}">Ganti Password</a>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf

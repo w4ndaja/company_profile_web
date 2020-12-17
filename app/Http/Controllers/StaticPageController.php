@@ -16,7 +16,7 @@ class StaticPageController extends Controller
         $statics = Pages::paginate();
         return view('pages.dashboard.static-page', compact('statics'));
     }
-    
+
     public function create()
     {
         $page = new Pages;
@@ -58,6 +58,8 @@ class StaticPageController extends Controller
     public function getForm($data = null)
     {
         $req = request()->only('name', 'url');
+        // echo request()->content;
+        // dd('');
         $content = new DOMDocument();
         $content->loadHTML(request()->content);
         $imgs = $content->getElementsByTagName('img');

@@ -19,7 +19,7 @@
                                 <th>Nama</th>
                                 <th>Icon</th>
                                 <th>URL</th>
-                                <th>Sub Menu</th>
+                                {{-- <th>Sub Menu</th> --}}
                                 <th width="50">Aksi</th>
                             </tr>
                         </thead>
@@ -30,9 +30,9 @@
                                 <td>{{$menu->name}}</td>
                                 <td>{{$menu->icon}}</td>
                                 <td>{{$menu->url}}</td>
-                                <td>
+                                {{-- <td>
                                     ...Sub Menu List...
-                                </td>
+                                </td> --}}
                                 <td>
                                     <div class="dropleft">
                                         <button class="btn rounded-pill dropdown-toggle" type="button" id="menu-action-{{$key}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -5,7 +5,7 @@
             @if(Storage::disk('public')->exists(config('theme.logo')))
             <div class="position-absolute" style="top: 0">
                 <img src="{{ asset(config('theme.logo')) }}" alt="" height="84" class="bg-white shadow-sm rounded p-1">
-                <span class="position-absolute m-2" style="top:0">{{ config('theme.name') ?? 'Site Name' }}</span>
+                {{-- <span class="position-absolute m-2" style="top:0">{{ config('theme.name') ?? 'Site Name' }}</span> --}}
             </div>
             @else
             <span>{{ config('theme.name') ?? 'Site Name' }}</span>

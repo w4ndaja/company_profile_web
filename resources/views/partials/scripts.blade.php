@@ -8,6 +8,7 @@
 <script src="{{asset('js/scripts.js')}}"></script>
 <script>
     $('.dropdown-toggle').click(e => {
+        e.preventDefault();
         var target = $(e.target);
         target.parent().parent().find('.dropdown-menu.show').not(target.next()).removeClass('show')
         target.next().toggleClass('show')
