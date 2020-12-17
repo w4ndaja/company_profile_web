@@ -1,10 +1,13 @@
-php:
-  preset: laravel
-  disabled:
-    - no_unused_imports
-  finder:
-    not-name:
-      - index.php
-      - server.php
-    name:
-      - "*.php"
+preset: laravel
+tab-width: 4
+disabled:
+  - no_unused_imports
+finder:
+  exclude:
+    - "tests"
+  name:
+    - "*.php"
+  not-name:
+    - "*Stub.php"
+    - index.php
+    - server.php
