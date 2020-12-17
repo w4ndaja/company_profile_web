@@ -16,10 +16,10 @@ class RoleSeeder extends Seeder
     {
         $roles = [
             'Super Admin',
-            'Writer'
+            'Writer',
         ];
-        
-        foreach($roles as $role){
+
+        foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }
     }

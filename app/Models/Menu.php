@@ -28,6 +28,7 @@ class Menu extends Model
     {
         return $this->children->count() > 0 ? true : false;
     }
+
     public function scopeHasParent()
     {
         return $this->parent()->count() > 0 ? true : false;

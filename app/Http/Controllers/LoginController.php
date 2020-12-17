@@ -6,23 +6,26 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function authenticate(){
+    public function authenticate()
+    {
         request()->validate([
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ]);
         $credentials = request()->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             return redirect('/dashboard');
-        }else{
+        } else {
             return back()->withInput()->withErrors(['password' => ['salah']]);
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
+
         return redirect('/');
     }
 }
