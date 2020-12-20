@@ -83,23 +83,17 @@ class UserController extends Controller
         //
     }
 
-    public function changePassword()
-    {
+    public function changePassword(){
         return view('pages.dashboard.change-password');
     }
-
-    public function attemptChangePassword()
-    {
+    public function attemptChangePassword(){
         request()->validate([
-            'old_password' => ['required', function ($attr, $val, $fail) {
-                if (! Hash::check($val, request()->user()->password)) {
-                    $fail('Password lama salah');
-                }
+            'old_password' => ['required', function($attr, $val, $fail){
+                if(!Hash::check($val, request()->user()->password)) $fail('Password lama salah');
             }],
             'password' => 'required|confirmed',
         ]);
         request()->user()->update(['password' => bcrypt(request()->password)]);
-
         return back()->with('success', 'Password berhasil diganti');
     }
 }

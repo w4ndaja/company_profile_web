@@ -20,13 +20,11 @@ class DashboardMiddleware
      */
     public function handle(Request $request, Closure $next, $didnhaveuser = '')
     {
-        if (! User::first() && $didnhaveuser !== 'didnhaveuser') {
+        if (!User::first() && $didnhaveuser !== 'didnhaveuser') {
             Artisan::call('db:seed', ['--class' => 'UserSeeder']);
-
             return redirect('superadmin-created');
         }
         Config::set('theme', Theme::firstOrNew());
-
         return $next($request);
     }
 }

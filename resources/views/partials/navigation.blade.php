@@ -1,5 +1,5 @@
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color:white">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color:#FFD700">
     <div class="container">
         <a class="navbar-brand text-dark" href="{{url('/')}}">
             @if(Storage::disk('public')->exists(config('theme.logo')))

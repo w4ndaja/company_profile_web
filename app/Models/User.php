@@ -40,31 +40,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
-    {
+    public function role(){
         return $this->morphToMany(Role::class, 'roleable');
     }
 
-    public function scopeHasRole($q, $role)
-    {
+    public function scopeHasRole($q, $role){
         return $q->role()->whereName($role)->first();
     }
 
-    public function scopeHasPermission($q, ...$permissions)
-    {
-        $inRole = $q->role()->whereHas('permissions', function ($q) use ($permissions) {
+    public function scopeHasPermission($q, ...$permissions){
+        $inRole = $q->role()->whereHas('permissions', function($q) use ($permissions){
             $q->whereIn('name', $permissions);
         })->get();
         $inPermission = $q->permissions()->whereIn('name', $permissions)->get();
-        if (! $inRole && ! $inPermission) {
-            return false;
-        } else {
-            return true;
-        }
+        if(!$inRole && !$inPermission) return false;
+        else return true;
     }
 
-    public function permissions()
-    {
+    public function permissions(){
         return $this->morphToMany(Permission::class, 'permissionable');
     }
 }

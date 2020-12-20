@@ -9,9 +9,7 @@ class Role extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
-    public function permissions()
-    {
+    public function permissions(){
         return $this->morphToMany(Permission::class, 'permissionable');
     }
 }

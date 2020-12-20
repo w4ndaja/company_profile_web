@@ -18,17 +18,17 @@ class PermissionSeeder extends Seeder
             'create user',
             'update user',
             'delete user',
-
+            
             'create role',
             'update role',
             'delete role',
             'asign role',
-
+            
             'create permission',
             'update permission',
             'delete permission',
             'asign permission',
-
+            
             'create menu',
             'update menu',
             'delete menu',
@@ -62,9 +62,9 @@ class PermissionSeeder extends Seeder
             'publish others post',
         ];
 
-        foreach ($permissions as $permission) {
+        foreach($permissions as $permission){
             Permission::create([
-                'name' => $permission,
+                'name' => $permission
             ]);
         }
     }
